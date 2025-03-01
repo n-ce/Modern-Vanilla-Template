@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MVT</title>
+    <style>
+      /* https://jakelazaroff.com/words/my-modern-css-reset */
+      @layer reset {
+        *,
+        *::before,
+        *::after {
+          box-sizing: border-box;
+        }
+        * {
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          line-height: 1.5;
+        }
+        img,
+        picture,
+        video,
+        canvas,
+        svg {
+          display: block;
+          max-inline-size: 100%;
+        }
+        input,
+        button,
+        textarea,
+        select {
+          font: inherit;
+          letter-spacing: inherit;
+          word-spacing: inherit;
+          color: currentColor;
+        }
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          overflow-wrap: break-word;
+        }
+        ol,
+        ul {
+          list-style: none;
+        }
+        :not([class]) {
+          h1&,
+          h2&,
+          h3&,
+          h4&,
+          h5&,
+          h6& {
+            margin-block: 0.75em;
+            line-height: 1.25;
+            text-wrap: balance;
+            letter-spacing: -0.05ch;
+          }
+          p&,
+          ol&,
+          ul& {
+            margin-block: 1em;
+          }
+          ol&,
+          ul& {
+            padding-inline-start: 1.5em;
+            list-style: revert;
+          }
+          li& {
+            margin-block: 0.5em;
+          }
+        }
+      }
+    </style>
+      <!-- Normalize above, Customise below -->
+    <style>
+      h1 {
+        opacity: 0.9;
+      }
+      div {
+        background-color: aliceblue;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Modern Vanilla Template</h1>
+      <i>Under Construction</i>
+      <!-- componentizer -->
+      <div id='container'></div>
+    </main>
+    <script>
+      const parent = document.getElementById('container');
+      const source = 'https://jsonplaceholder.typicode.com/todos/1';
+      fetch(source)
+        .then(r => r.json())
+        .then(j => parent.appendChild(JSON.stringify(j)));
+    </script>
+  </body>
+</html>
