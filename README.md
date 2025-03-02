@@ -1,6 +1,6 @@
 # Modern Vanilla Template (MVT)
 
-This project is a modern vanilla JavaScript template designed for creating dynamic web content using a compact, array-based component system. It focuses on simplicity, efficiency, and no dependencies.
+This project is a modern HTML template designed for creating dynamic web content using a compact, array-based component system. It focuses on simplicity, efficiency, and no dependencies.
 
 ## Features
 
