@@ -1,105 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MVT</title>
-    <style>
-      /* https://jakelazaroff.com/words/my-modern-css-reset */
-      @layer reset {
-        *,
-        *::before,
-        *::after {
-          box-sizing: border-box;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVT</title>
+  <style>
+    /* https://jakelazaroff.com/words/my-modern-css-reset */
+    @layer reset {
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        line-height: 1.5;
+      }
+      img,
+      picture,
+      video,
+      canvas,
+      svg {
+        display: block;
+        max-inline-size: 100%;
+      }
+      input,
+      button,
+      textarea,
+      select {
+        font: inherit;
+        letter-spacing: inherit;
+        word-spacing: inherit;
+        color: currentColor;
+      }
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        overflow-wrap: break-word;
+      }
+      ol,
+      ul {
+        list-style: none;
+      }
+      :not([class]) {
+        h1&,
+        h2&,
+        h3&,
+        h4&,
+        h5&,
+        h6& {
+          margin-block: 0.75em;
+          line-height: 1.25;
+          text-wrap: balance;
+          letter-spacing: -0.05ch;
         }
-        * {
-          margin: 0;
-          padding: 0;
+        p&,
+        ol&,
+        ul& {
+          margin-block: 1em;
         }
-        body {
-          line-height: 1.5;
+        ol&,
+        ul& {
+          padding-inline-start: 1.5em;
+          list-style: revert;
         }
-        img,
-        picture,
-        video,
-        canvas,
-        svg {
-          display: block;
-          max-inline-size: 100%;
-        }
-        input,
-        button,
-        textarea,
-        select {
-          font: inherit;
-          letter-spacing: inherit;
-          word-spacing: inherit;
-          color: currentColor;
-        }
-        p,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          overflow-wrap: break-word;
-        }
-        ol,
-        ul {
-          list-style: none;
-        }
-        :not([class]) {
-          h1&,
-          h2&,
-          h3&,
-          h4&,
-          h5&,
-          h6& {
-            margin-block: 0.75em;
-            line-height: 1.25;
-            text-wrap: balance;
-            letter-spacing: -0.05ch;
-          }
-          p&,
-          ol&,
-          ul& {
-            margin-block: 1em;
-          }
-          ol&,
-          ul& {
-            padding-inline-start: 1.5em;
-            list-style: revert;
-          }
-          li& {
-            margin-block: 0.5em;
-          }
+        li& {
+          margin-block: 0.5em;
         }
       }
-    </style>
-      <!-- Normalize above, Customise below -->
-    <style>
-      h1 {
-        opacity: 0.9;
+    }
+    
+    /* Normalize above, Customize below */
+    
+    div#container {
+      background-color: aliceblue;
+      padding: 1em;
+      border-radius: 0.5em;
+      box-shadow: 0 0.2em 0.4em rgba(0, 0, 0, 0.1);
+      margin: 1em auto;
+      max-width: 60em;
+    }
+
+    .completed,
+    .pending {
+      border: 1px solid silver;
+      padding: 0.5em;
+      margin-bottom: 0.3em;
+
+      & .title {
+        font-weight: bold;
       }
-      div {
-        background-color: aliceblue;
+
+      & .user-id,
+      & .id,
+      & .status {
+        font-size: 0.9em;
+        color: gray;
       }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Modern Vanilla Template</h1>
-      <i>Under Construction</i>
-      <!-- componentizer -->
-      <div id='container'></div>
-    </main>
-    <script>
-      const parent = document.getElementById('container');
-      const source = 'https://jsonplaceholder.typicode.com/todos/1';
-      fetch(source)
-        .then(r => r.json())
-        .then(j => parent.appendChild(JSON.stringify(j)));
-    </script>
-  </body>
+    }
+
+    .completed {
+        background-color: lightcyan;
+    }
+
+    .pending {
+        background-color: cornsilk;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Modern Vanilla Template</h1>
+    <i>Under Construction</i>
+    <div id='container'></div>
+  </main>
+  <script>
+    function createComponent(componentContent) {
+      const { tag, attributes, children } = componentContent;
+
+      const element = tag 
+        ? document.createElement(tag)
+        : document.createDocumentFragment();
+
+      if (attributes) 
+        for (const key in attributes) 
+          element.setAttribute(key, attributes[key]);
+
+      children?.forEach(child => element.appendChild(typeof child === 'string' ? document.createTextNode(child) : createComponent(child)));
+
+      return element;
+    }
+
+    const parent = document.getElementById('container');
+    const source = 'https://jsonplaceholder.typicode.com/todos';
+
+    fetch(source)
+      .then(r => r.json())
+      .then(todos => {
+        const children = todos.map(todo => ({
+          tag: 'div',
+          attributes: { class: todo.completed ? 'completed' : 'pending' },
+          children: [
+            { tag: 'h3', attributes: { class: 'title' }, children: [todo.title] },
+            { tag: 'p', attributes: { class: 'user-id' }, children: ['User ID: ' + todo.userId] },
+            { tag: 'p', attributes: { class: 'id' }, children: ['ID: ' + todo.id] },
+            { tag: 'p', attributes: { class: 'status' }, children: ['Completed: ' + (todo.completed ? 'Yes' : 'No')] }
+          ]
+        }));
+        parent.appendChild(createComponent({ children }));
+      })
+      .catch(e => {
+        parent.textContent = 'Error: ' + e.message;
+      });
+    }
+  </script>
+</body>
 </html>
