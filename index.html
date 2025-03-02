@@ -153,12 +153,12 @@
     }
 
     const parent = document.getElementById('container');
-    const source = 'https://jsonplaceholder.typicode.com/todos';
+    const source = 'https://dummyjson.com/todos';
 
     fetch(source)
       .then(r => r.json())
-      .then(todos => {
-        const children = todos.map(todo => 
+      .then(data => {
+        const children = data.todos.map(todo => 
           ['div', { class: todo.completed ? 'completed' : 'pending' }, [
             ['h3', { class: 'title' }, [todo.title]],
             ['p', { class: 'user-id' }, ['User ID: ' + todo.userId]],
