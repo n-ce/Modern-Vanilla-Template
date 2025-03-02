@@ -154,14 +154,13 @@
     }
 
     const parent = document.getElementById('container');
-    const source = 'https://dummyjson.com/todos';
 
-    fetch(source)
-      .then(r => r.json())
+    fetch('https://dummyjson.com/todos')
+      .then(res => res.json())
       .then(data => {
         const children = data.todos.map(todo => 
           ['div', { class: todo.completed ? 'completed' : 'pending' }, [
-            ['h3', { class: 'title' }, [todo.title]],
+            ['h3', { class: 'title' }, [todo.todo]],
             ['p', { class: 'user-id' }, ['User ID: ' + todo.userId]],
             ['p', { class: 'id' }, ['ID: ' + todo.id]],
             ['p', { class: 'status' }, ['Completed: ' + (todo.completed ? 'Yes' : 'No')]]
