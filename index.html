@@ -2,48 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Modern Todo List</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+var:wght@100..900&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/n-ce/Modern-Vanilla-Template/normalize.css"/>
   <style>
+    :root {
+      color-scheme: light dark;
+      --base-light: 220 90% 95%;
+      --base-dark: 210 20% 15%;
+    }
+
     body {
-      font-family: 'Inter', sans-serif; /* Modern font */
-      background: linear-gradient(135deg, #e0f2fe, #f0f9ff); /* Gradient background */
+      font-family: 'Inter var', sans-serif;
+      background: hsl(from var(--base-light) h s calc(l - 5%));
       margin: 0;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
-      color: #333;
-      transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
-      text-rendering: optimizeLegibility; /* Enables font aliasing */
+      min-height: 100dvh; /* Dynamic viewport height */
+      color: hsl(from var(--base-light) h s calc(l - 70%));
+      transition: background 0.3s ease, color 0.3s ease;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-synthesis: none;
     }
 
     @media (prefers-color-scheme: dark) {
       body {
-        background: linear-gradient(135deg, #1a202c, #2d3748);
-        color: #e2e8f0;
+        background: hsl(from var(--base-dark) h s calc(l - 5%));
+        color: hsl(from var(--base-dark) h s calc(l + 60%));
       }
 
       #container {
-        background: rgba(28, 36, 51, 0.8); /* Dark translucent */
+        background: hsl(from var(--base-dark) h s calc(l + 10%) / 0.8);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       }
 
       .completed,
       .pending {
-        background: rgba(37, 48, 63, 0.9);
+        background: hsl(from var(--base-dark) h s calc(l + 15%) / 0.9);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        border: 1px solid #4a5568;
+        border: 1px solid hsl(from var(--base-dark) h s calc(l + 30%));
       }
 
       h1, .title{
-          color: #e2e8f0;
+          color: hsl(from var(--base-dark) h s calc(l + 60%));
       }
 
       .user-id, .id, .status{
-          color: #a0aec0;
+          color: hsl(from var(--base-dark) h s calc(l + 40%));
       }
-
     }
 
     main {
@@ -59,23 +68,23 @@
       font-weight: 700;
       margin-bottom: 2rem;
       text-align: center;
-      color: #2d3748;
+      color: hsl(from var(--base-light) h s calc(l - 60%));
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-      font-variation-settings: "opsz" 32; /* Optical sizing */
+      font-variation-settings: "opsz" 32;
     }
 
     #container {
-      background: rgba(255, 255, 255, 0.8); /* Translucent white */
-      backdrop-filter: blur(10px); /* Glassmorphism effect */
+      background: hsl(from var(--base-light) h s calc(l - 10%) / 0.8);
+      backdrop-filter: blur(10px);
       padding: 2.5rem;
       border-radius: 1rem;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      width: clamp(300px, 80%, 800px); /* Responsive width */
+      width: clamp(300px, 80%, 800px);
     }
 
     .completed,
     .pending {
-      background: rgba(255, 255, 255, 0.9);
+      background: hsl(from var(--base-light) h s calc(l - 5%) / 0.9);
       border-radius: 0.75rem;
       padding: 1.5rem;
       margin-bottom: 1rem;
@@ -91,28 +100,27 @@
         font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: 0.75rem;
-        color: #1a202c;
-        font-variation-settings: "opsz" 24; /* Optical sizing */
+        color: hsl(from var(--base-light) h s calc(l - 60%));
+        font-variation-settings: "opsz" 24;
       }
 
       & .user-id,
       & .id,
       & .status {
         font-size: 1rem;
-        color: #718096;
+        color: hsl(from var(--base-light) h s calc(l - 40%));
         margin-bottom: 0.5rem;
       }
     }
 
     .completed {
-      border: 1px solid #b2ebf2;
+      border: 1px solid hsl(from var(--base-light) h s calc(l - 30%));
     }
 
     .pending {
-      border: 1px solid #ffe0b2;
+      border: 1px solid hsl(from var(--base-light) h s calc(l - 20%));
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <main>
