@@ -127,10 +127,10 @@
     function createComponent(content) {
       let tag, attributes, children;
 
-      if (typeof content[0] === 'string' && content.length === 3)
+      if (Array.isArray(content) && typeof content[0] === 'string' && content.length === 3)
         [tag, attributes = {}, children = []] = content;
       else
-        children = content || [];
+        children = content;
 
       const element = tag
         ? document.createElement(tag)
@@ -147,9 +147,9 @@
 
       children?.forEach(child => {
         element.appendChild(
-          typeof child === 'string' ?
-          document.createTextNode(child) :
-          createComponent(child))
+          Array.isArray(child) ?
+          createComponent(child)) :
+          document.createTextNode(child)
       });
 
       return element;
