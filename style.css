@@ -13,17 +13,17 @@
   --accent-light: #F8E8EE;
 
   /* Dark Mode Colors (Palette) */
-  --dark-text: #EEEEEE; /* Lightest color for text */
-  --dark-container-bg: #222831; /* Darkest background */
-  --dark-item-border: #76ABAE; /* Teal border */
-  --dark-title-text: #EEEEEE; /* Lightest color for titles */
-  --dark-detail-text: #76ABAE; /* Teal details */
-  --accent-dark: #31363F; /* Darker background accent */
+  --dark-text: #EEEEEE;
+  --dark-container-bg: #222831;
+  --dark-item-border: #76ABAE;
+  --dark-title-text: #EEEEEE;
+  --dark-detail-text: #76ABAE;
+  --accent-dark: #31363F;
 }
 
 body {
   font-family: "Inter var", sans-serif;
-  background: white;
+  background: linear-gradient(white, #F9F5F6);
   color: var(--light-text);
   margin: 0;
   display: flex;
@@ -102,7 +102,7 @@ body {
   }
 
   @media (prefers-color-scheme: dark) {
-    background: #121212;
+    background: linear-gradient(#1f1f1f, #222831);
     color: var(--dark-text);
 
     main {
