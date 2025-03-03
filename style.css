@@ -1,35 +1,26 @@
 :root {
   color-scheme: light dark;
-  --base-light-h: 220;
-  --base-light-s: 90%;
-  --base-light-l: 95%;
-  --base-dark-h: 210;
-  --base-dark-s: 20%;
-  --base-dark-l: 15%;
-  --light-bg: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 5%));
-  --light-text: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 70%));
-  --light-container-bg: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 10%) / 0.8);
-  --light-item-bg: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 5%) / 0.9);
-  --light-item-border-completed: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 30%));
-  --light-item-border-pending: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 20%));
-  --light-title-text: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 60%));
-  --light-detail-text: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 40%));
-  --dark-bg: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) - 5%));
-  --dark-text: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 60%));
-  --dark-container-bg: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 10%) / 0.8);
-  --dark-item-bg: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 15%) / 0.9);
-  --dark-item-border: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 30%));
-  --dark-title-text: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 60%));
-  --dark-detail-text: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 40%));
+  /* Light Mode Colors (Hardcoded) */
+  --light-text: #333;
+  --light-container-bg: rgba(235, 245, 250, 0.8);
+  --light-item-border-completed: #99c2e6;
+  --light-item-border-pending: #b3d1ed;
+  --light-title-text: #222;
+  --light-detail-text: #666;
+  --accent-light: #ffd740; /* Golden Yellow */
 
-    /* Accent Colors */
-    --accent-light: hsl(45, 90%, 60%); /* A warm yellow-gold */
-    --accent-dark: hsl(200, 80%, 70%); /* A cool light blue */
+  /* Dark Mode Colors (Hardcoded) */
+  --dark-text: #e0e0e0;
+  --dark-container-bg: rgba(45, 55, 65, 0.8);
+  --dark-item-border: #66a5cc;
+  --dark-title-text: #f0f0f0;
+  --dark-detail-text: #a0a0a0;
+  --accent-dark: #80ccee; /* Light Blue */
 }
 
 body {
   font-family: "Inter var", sans-serif;
-  background: var(--light-bg);
+  background: white;
   color: var(--light-text);
   margin: 0;
   display: flex;
@@ -53,7 +44,7 @@ body {
       font-weight: 700;
       margin-bottom: 2rem;
       text-align: center;
-      color: var(--accent-light); /* Accent color for title */
+      color: var(--accent-light);
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
       font-variation-settings: "opsz" 32;
     }
@@ -70,7 +61,7 @@ body {
 
   .completed,
   .pending {
-    background: var(--light-item-bg);
+    background: transparent;
     border-radius: 0.75rem;
     padding: 1.5rem;
     margin-bottom: 1rem;
@@ -94,13 +85,13 @@ body {
     & .id,
     & .status {
       font-size: 1rem;
-      color: var(--accent-light); /* Accent color for details */
+      color: var(--accent-light);
       margin-bottom: 0.5rem;
     }
   }
 
   .completed {
-    border: 1px solid var(--accent-light); /* Accent border */
+    border: 1px solid var(--accent-light);
   }
 
   .pending {
@@ -108,14 +99,14 @@ body {
   }
 
   @media (prefers-color-scheme: dark) {
-    background: var(--dark-bg);
+    background: #121212;
     color: var(--dark-text);
 
     main {
       h1,
       .completed .title,
       .pending .title {
-        color: var(--accent-dark); /* Dark mode accent */
+        color: var(--accent-dark);
       }
     }
 
@@ -126,14 +117,14 @@ body {
 
     .completed,
     .pending {
-      background: var(--dark-item-bg);
+      background: transparent;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--accent-dark); /* Dark mode accent border */
+      border: 1px solid var(--accent-dark);
 
       & .user-id,
       & .id,
       & .status {
-        color: var(--accent-dark); /* Dark mode accent details */
+        color: var(--accent-dark);
       }
     }
   }
