@@ -3,94 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MVT</title>
+  <title>Modern Todo List</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/n-ce/Modern-Vanilla-Template/normalize.css"/>
   <style>
-    div#container {
-      background-color: aliceblue;
-      padding: 1em;
-      border-radius: 0.5em;
-      box-shadow: 0 0.2em 0.4em rgba(0, 0, 0, 0.1);
-      margin: 1em auto;
-      max-width: 60em;
+    body {
+      font-family: 'Inter', sans-serif; /* Modern font */
+      background: linear-gradient(135deg, #e0f2fe, #f0f9ff); /* Gradient background */
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+      transition: background 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+      text-rendering: optimizeLegibility; /* Enables font aliasing */
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: linear-gradient(135deg, #1a202c, #2d3748);
+        color: #e2e8f0;
+      }
+
+      #container {
+        background: rgba(28, 36, 51, 0.8); /* Dark translucent */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      }
+
+      .completed,
+      .pending {
+        background: rgba(37, 48, 63, 0.9);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        border: 1px solid #4a5568;
+      }
+
+      h1, .title{
+          color: #e2e8f0;
+      }
+
+      .user-id, .id, .status{
+          color: #a0aec0;
+      }
+
+    }
+
+    main {
+      flex: 1;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #2d3748;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      font-variation-settings: "opsz" 32; /* Optical sizing */
+    }
+
+    #container {
+      background: rgba(255, 255, 255, 0.8); /* Translucent white */
+      backdrop-filter: blur(10px); /* Glassmorphism effect */
+      padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: clamp(300px, 80%, 800px); /* Responsive width */
     }
 
     .completed,
     .pending {
-      border: 1px solid silver;
-      padding: 0.5em;
-      margin-bottom: 0.3em;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      }
 
       & .title {
-        font-weight: bold;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #1a202c;
+        font-variation-settings: "opsz" 24; /* Optical sizing */
       }
 
       & .user-id,
       & .id,
       & .status {
-        font-size: 0.9em;
-        color: gray;
+        font-size: 1rem;
+        color: #718096;
+        margin-bottom: 0.5rem;
       }
     }
 
     .completed {
-        background-color: lightcyan;
+      border: 1px solid #b2ebf2;
     }
 
     .pending {
-        background-color: cornsilk;
+      border: 1px solid #ffe0b2;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <main>
-    <h1>Modern Vanilla Template</h1>
-    <i>Under Construction</i>
+    <h1>Your Modern Todo List</h1>
     <div id="container"></div>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-  <script>eruda.init();</script>
   <script type="module">
     import { createComponent } from 'https://cdn.jsdelivr.net/gh/n-ce/Modern-Vanilla-Template/componentize.js';
-    
-    function createComponent(content) {
-      let tag, attributes, children;
-
-      if (Array.isArray(content) && typeof content[0] === 'string' && content.length === 3)
-        [tag, attributes = {}, children = []] = content;
-      else
-        children = content;
-
-      const element = tag
-        ? document.createElement(tag)
-        : document.createDocumentFragment();
-
-      if (attributes) {
-        for (const key in attributes) {
-          if (attributes[key])
-            element.setAttribute(key, attributes[key]);
-          else
-            element.toggleAttribute(key);
-        }
-      }
-
-      children?.forEach(child => {
-        element.appendChild(
-          Array.isArray(child) ?
-          createComponent(child) :
-          document.createTextNode(child)
-        );
-      });
-
-      return element;
-    }
 
     const parent = document.getElementById('container');
 
     fetch('https://dummyjson.com/todos')
       .then(res => res.json())
       .then(data => {
-        const children = data.todos.map(todo => 
+        const children = data.todos.map(todo =>
           ['div', { class: todo.completed ? 'completed' : 'pending' }, [
             ['h3', { class: 'title' }, [todo.todo]],
             ['p', { class: 'user-id' }, ['User ID: ' + todo.userId]],
@@ -98,7 +135,6 @@
             ['p', { class: 'status' }, ['Completed: ' + (todo.completed ? 'Yes' : 'No')]]
           ]]
         );
-        console.log(children);
         parent.appendChild(createComponent(children));
       })
       .catch(e => {
