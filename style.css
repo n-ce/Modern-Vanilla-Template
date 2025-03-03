@@ -1,0 +1,140 @@
+:root {
+  color-scheme: light dark;
+  --base-light-h: 220;
+  --base-light-s: 90%;
+  --base-light-l: 95%;
+  --base-dark-h: 210;
+  --base-dark-s: 20%;
+  --base-dark-l: 15%;
+  --light-bg: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 5%));
+  --light-text: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 70%));
+  --light-container-bg: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 10%) / 0.8);
+  --light-item-bg: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 5%) / 0.9);
+  --light-item-border-completed: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 30%));
+  --light-item-border-pending: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 20%));
+  --light-title-text: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 60%));
+  --light-detail-text: hsl(var(--base-light-h), var(--base-light-s), calc(var(--base-light-l) - 40%));
+  --dark-bg: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) - 5%));
+  --dark-text: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 60%));
+  --dark-container-bg: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 10%) / 0.8);
+  --dark-item-bg: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 15%) / 0.9);
+  --dark-item-border: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 30%));
+  --dark-title-text: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 60%));
+  --dark-detail-text: hsl(var(--base-dark-h), var(--base-dark-s), calc(var(--base-dark-l) + 40%));
+
+    /* Accent Colors */
+    --accent-light: hsl(45, 90%, 60%); /* A warm yellow-gold */
+    --accent-dark: hsl(200, 80%, 70%); /* A cool light blue */
+}
+
+body {
+  font-family: "Inter var", sans-serif;
+  background: var(--light-bg);
+  color: var(--light-text);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  transition: background 0.3s ease, color 0.3s ease;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+
+  main {
+    flex: 1;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--accent-light); /* Accent color for title */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      font-variation-settings: "opsz" 32;
+    }
+
+    #container {
+      background: var(--light-container-bg);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: clamp(300px, 80%, 800px);
+    }
+  }
+
+  .completed,
+  .pending {
+    background: var(--light-item-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    &.title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--light-title-text);
+      font-variation-settings: "opsz" 24;
+    }
+
+    & .user-id,
+    & .id,
+    & .status {
+      font-size: 1rem;
+      color: var(--accent-light); /* Accent color for details */
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .completed {
+    border: 1px solid var(--accent-light); /* Accent border */
+  }
+
+  .pending {
+    border: 1px solid var(--light-item-border-pending);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+
+    main {
+      h1,
+      .completed .title,
+      .pending .title {
+        color: var(--accent-dark); /* Dark mode accent */
+      }
+    }
+
+    #container {
+      background: var(--dark-container-bg);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .completed,
+    .pending {
+      background: var(--dark-item-bg);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--accent-dark); /* Dark mode accent border */
+
+      & .user-id,
+      & .id,
+      & .status {
+        color: var(--accent-dark); /* Dark mode accent details */
+      }
+    }
+  }
+}
