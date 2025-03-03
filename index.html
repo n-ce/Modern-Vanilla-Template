@@ -148,8 +148,9 @@
       children?.forEach(child => {
         element.appendChild(
           Array.isArray(child) ?
-          createComponent(child)) :
+          createComponent(child) :
           document.createTextNode(child)
+        );
       });
 
       return element;
